@@ -37,3 +37,10 @@ N/a
 ## Tests
 
 N/A
+
+## Links
+
+GitHub: https://github.com/christiankasegne/employee   
+
+Video: https://drive.google.com/file/d/1SxU_M6yfMT7MAbHOnxFtjeX4og_FUJDR/view
+
