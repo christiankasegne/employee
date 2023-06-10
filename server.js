@@ -32,28 +32,30 @@ async function startPrompt() {
     },
   ]);
 
-  if (replay.choices === 'View all employees') {
-    db.query(`SELECT * FROM employee`, (err, result) => {
+  if (replay.choice === 'View all employees') {
+    console.log('hi')
+    db.query('SELECT * FROM employee', (err, result) => {
       if (err) throw err;
       console.table(result);
       startPrompt();
     });
   }
-  if (replay.choices === 'View all roles') {
-    db.query(`SELECT * FROM role`, (err, result) => {
+  if (replay.choice === 'View all roles') {
+    console.log('hi')
+    db.query('SELECT * FROM role', (err, result) => {
       if (err) throw err;
       console.table(result);
       startPrompt();
     });
   }
-  if (replay.choices === 'View all departments') {
-    db.query(`SELECT * FROM department`, (err, result) => {
+  if (replay.choice === 'View all deparments') {
+    db.query('SELECT * FROM department', (err, result) => {
       if (err) throw err;
       console.table(result);
       startPrompt();
     });
   }
-  if (replay.choices === 'Add employee') {
+  if (replay.choice === 'Add employee') {
     const replay = await inquirer.prompt([
       {
         type: 'input',
@@ -77,8 +79,8 @@ async function startPrompt() {
       },
     ]);
     db.query(
-      `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`,
-      [replay.firstName, replay.lastName, replay.newRole, replay.managerID],
+      'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
+      [replay.firstName, replay.lastName, replay.newRole, replay.managerId],
       (err, result) => {
         if (err) throw err;
         console.table(result);
@@ -87,7 +89,7 @@ async function startPrompt() {
     );
   }
 
-  if (replay.choices === "Update an employees' role") {
+  if (replay.choice === "Update employee") {
     const replay = await inquirer.prompt([
       {
         type: 'input',
@@ -101,7 +103,7 @@ async function startPrompt() {
       },
     ]);
     db.query(
-      `UPDATE employee SET role_id = ? WHERE id = ?`,
+      'UPDATE employee SET role_id = ? WHERE id = ?',
       [replay.updateRole, replay.updateEmployee],
       (err, result) => {
         if (err) throw err;
@@ -111,7 +113,7 @@ async function startPrompt() {
     );
   }
 
-  if (replay.choices === 'Add role') {
+  if (replay.choice === 'Add role') {
     const replay = await inquirer.prompt([
       {
         type: 'input',
@@ -130,7 +132,7 @@ async function startPrompt() {
       },
     ]);
     db.query(
-      `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`,
+      'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)',
       [replay.newRole, replay.newSalary, replay.newDepartID],
       (err, result) => {
         if (err) throw err;
@@ -140,7 +142,7 @@ async function startPrompt() {
     );
   }
 
-  if (replay.choices === 'Add department') {
+  if (replay.choice === 'Add department') {
     const replay = await inquirer.prompt([
       {
         type: 'input',
@@ -149,7 +151,7 @@ async function startPrompt() {
       },
     ]);
     db.query(
-      `INSERT INTO department (department_name) VALUES (?)`,
+      'INSERT INTO department (name) VALUES (?)',
       [replay.newDepartment],
       (err, result) => {
         if (err) throw err;
